@@ -1,72 +1,54 @@
-
-var bullet,wall;
-var thickness;
-var speed, weight;
+var bullet, wall, speed, weight, thickness, damage;
 
 function setup() {
   createCanvas(1600,400);
-  createSprite(400, 200, 50, 50);
+  
+ speed=random(223, 321);
+ weight=random(30, 52);
+ thickness=random(22, 83);
 
-  thickness=random(22, 83);
+  bullet=createSprite(50, 200, 120, 50);
+  bullet.shapeColor="white";
 
-  car=createSprite(50,200,50,50);
-  car.velocityX = speed;
-
-  wall=createSprite(1200,200,thickness,weight/2);
-  wall.shapeColor=color(80,80,80);
-  speed=random(223,321);
-  weight=random(30,52);
+  wall=createSprite(1200, 200, thickness, height/2);
+  wall.shapeColor=(80, 80, 80);
 }
 
 function draw() {
-  background(255,255,255);  
-  drawSprites();
+  background(0);  
 
-  if(hasCollided(bullet, wall))
-  {
-    bullet.velocity=0;
-    var damge=0.5 * weight * speed * speed/(thickness *thickness);
-  }
-  if(damge>10)
-  {
-       wall.shapeColor=color(255,0,0);
-  }
+  bullet.velocityX=speed/2;
 
-  if(damge<10)
-{
-  wall.shapeColor=color(0,255,0)
-}
-  if(wall.x-car.x < (car.width+wall)/2)
-  {
-    car.velocityX=0;
-    var deformation=0.5 * weight * speed* speed/22509;
-    if(deformation>180)
-    {
-      car.shapeColor=color(255, 0, 0);
+  damage=0.5*weight*speed*speed/(thickness*thickness*thickness);
+
+  hasCollided(bullet, wall)
+  
+  if(hasCollided(bullet, wall)){
+    bullet.velocityX=0;
+    bullet.x=wall.x-thickness;
+
+    if(damage>10){
+        wall.shapeColor="red"; 
     }
-   if(deformation<180 && deformation>100)
-  {
-    car.shapeColor=color(230, 230, 0);
-  }
-
-  if(deformation<100)
-  {
-    car.shapeColor=color(0, 255, 0)
+    if(damage<10){
+       wall.shapeColor="green";
+    }
   }
   
+
+  drawSprites();
+}
+
+function hasCollided(bullet, wall){
+bulletRightEdge=bullet.x+bullet.width
+wallLeftEdge=wall.x;
+if(bulletRightEdge>=wallLeftEdge){
+  return true;
+}else{
+  return false;
 }
 
 }
 
-function hasCollided(bullet, wall)
-{
-  bulletRightEdge=bullet.x +bullet.width;
-  wallLeftEdge+wall.x;
-  if(bulletRightEdge>=wallLeftEdge)
-{
-  return true 
-}
-return false;
-}
 
 
