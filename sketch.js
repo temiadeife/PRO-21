@@ -10,7 +10,7 @@ function setup() {
   bullet=createSprite(50, 200, 120, 50);
   bullet.shapeColor="white";
 
-  wall=createSprite(1200, 200, thickness, height/2);
+  wall=createSprite(800, 200, thickness, height/4);
   wall.shapeColor=(80, 80, 80);
 }
 
@@ -21,7 +21,7 @@ function draw() {
 
   damage=0.5*weight*speed*speed/(thickness*thickness*thickness);
 
-  hasCollided(bullet, wall)
+  //hasCollided(bullet, wall)
   
   if(hasCollided(bullet, wall)){
     bullet.velocityX=0;
